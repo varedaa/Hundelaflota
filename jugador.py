@@ -3,13 +3,16 @@ import random
 from tablero import Tablero
 
 
+
 #Creamos la clase jugador
 class Jugador(Tablero):
     
-    def __init__(self,dimensiones):
-        self.dimensiones=dimensiones
+    def __init__(self,dimensiones,barcos): 
+        super().__init__(dimensiones) 
         self.tablero=np.full((self.dimensiones,self.dimensiones),' ')
-
+        self.tablero_sin_barcos=np.full((self.dimensiones,self.dimensiones),' ')
+        self.barcos=barcos
+        
 #Creamos el metodo para los turnos del jugador   
     def turno(self,tablero_contrario):
 
@@ -38,6 +41,7 @@ class Jugador(Tablero):
                 tablero_contrario.tablero[fila,columna]='~'
                 break            
 
+
 #Creamos el metodo para comprobar si el jugador ha ganado
     def comprobar_ganador(self,tablero_contrario):
 #Si no hay ningun barco en el tablero contrario, el jugador ha ganado
@@ -46,3 +50,4 @@ class Jugador(Tablero):
                 return False
             else:
                 return True
+        

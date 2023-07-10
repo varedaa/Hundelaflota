@@ -4,10 +4,12 @@ from tablero import Tablero
 
 #Creamos la clase maquina
 class Maquina(Tablero):
-
-    def __init__(self,dimensiones):
-        self.dimensiones=dimensiones
+        
+    def __init__(self,dimensiones,barcos):
+        super().__init__(dimensiones)
         self.tablero=np.full((self.dimensiones,self.dimensiones),' ')
+        self.tablero_sin_barcos=np.full((self.dimensiones,self.dimensiones),' ')
+        self.barcos=barcos
 
 #Creamos el metodo para el turno de la maquina
     def turno_maquina(self,tablero_contrario):
@@ -31,6 +33,7 @@ class Maquina(Tablero):
                 tablero_contrario.tablero[fila,columna]='~'
                 break
 
+
 #Creamos el metodo para comprobar si la maquina ha ganado
     def comprobar_ganador_maquina(self,tablero_contrario):
 
@@ -40,3 +43,4 @@ class Maquina(Tablero):
                 return False
             else:
                 return True
+

@@ -4,17 +4,17 @@ import random
 #Creamos la clase tablero
 class Tablero:
 
-    def __init__(self,dimensiones):
+    def __init__(self,dimensiones,barcos):
 
 #Dimensiones del tablero
         self.dimensiones=dimensiones
 
 #Barcos que se van a colocar en el tablero y su tamaño
-        self.barcos=[(1,4), (2, 3), (3, 2), (4, 1)]
+        self.barcos=barcos
 
 #Tablero vacio
         self.tablero=np.full((self.dimensiones,self.dimensiones),' ')
-
+    
 #Creamos el metodo para colocar todos los barcos en el tablero
     def montar_tablero(self):
 
@@ -40,17 +40,33 @@ class Tablero:
     def validar_posicion(self,fila,columna,barco,orientacion):
 
 #Comprobamos que el barco no se salga del tablero y que no se solape con otro barco ya colocado
-        if orientacion==0:
-            if columna+barco[1]>self.dimensiones:
-                return False            
-            for i in range(barco[1]):
-                if self.tablero[fila,columna+i]!=' ':
-                    return False
-        else:
-            if fila+barco[1]>self.dimensiones:
-                return False
-            for i in range(barco[1]):
-                if self.tablero[fila+i,columna]!=' ':
-                    return False
-        return True
-    
+            if orientacion==0:
+                try:
+                    if columna+barco[1]>self.dimensiones:
+                        return False
+                except ValueError:
+                    print("se sale del tablero")
+                    
+                try:
+                    for i in range(barco[1]):
+                        if self.tablero[fila,columna+i]!=' ':
+                            return False
+                except ValueError: 
+                    print("ya estaba ocupada")
+                    
+            else:
+                try:
+                    if fila+barco[1]>self.dimensiones:
+                        return False
+                except ValueError:
+                    print("se sale del tablero")
+                    
+                try:
+                    for i in range(barco[1]):
+                        if self.tablero[fila+i,columna]!=' ':
+                            return False
+                except ValueError:
+                        print("ya estaba ocupada")
+                        
+            return True
+
