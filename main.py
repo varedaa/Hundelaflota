@@ -13,6 +13,7 @@ tablero_maquina = Maquina(dimensiones, barcos)
 tablero_jugador.montar_tablero()
 tablero_maquina.montar_tablero()
 
+
 #Empieza el juego 
 print('''   ¡Bienvenido/a a Hundir la flota!
 En este juego deberas hundir todos los barcos de la maquina antes de que ella hunda los tuyos.

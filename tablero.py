@@ -39,10 +39,11 @@ class Tablero:
                     return False
         return True
 
- # Creamos el metodo para mostrar el tablero de la maquina, sin mostrar los barcos   
+ # Creamos el metodo para mostrar el tablero de la maquina con los disparos del jugador, sin mostrar los barcos   
     def mostrar_tablero(self):
         ver_tablero = np.where(self.tablero_sin_barcos == 'O', ' ', self.tablero_sin_barcos)
         disparos = np.where(self.tablero == 'X', 'X', ' ')
-        tablero_con_disparos = np.where(disparos != ' ', disparos, ver_tablero)
+        fallos= np.where(self.tablero == '~', '~', ' ')
+        tablero_con_disparos = np.where(disparos != ' ', disparos, np.where(fallos != ' ', fallos, ver_tablero))
         print(tablero_con_disparos)
 
