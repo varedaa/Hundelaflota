@@ -2,52 +2,34 @@ import numpy as np
 import random
 from tablero import Tablero
 
-
-
-#Creamos la clase jugador
+# Creamos la clase jugador
 class Jugador(Tablero):
-    
-    def __init__(self,dimensiones,barcos): 
-        super().__init__(dimensiones) 
-        self.tablero=np.full((self.dimensiones,self.dimensiones),' ')
-        self.tablero_sin_barcos=np.full((self.dimensiones,self.dimensiones),' ')
-        self.barcos=barcos
-        
-#Creamos el metodo para los turnos del jugador   
-    def turno(self,tablero_contrario):
+    def __init__(self, dimensiones, barcos):
+        super().__init__(dimensiones, barcos)
+        self.tablero_sin_barcos = np.full((self.dimensiones, self.dimensiones), ' ')
 
-#Mientras sea el turno del jugador, se le pide que introduzca una fila y una columna
+    # Creamos el metodo para los turnos del jugador
+    def turno(self, tablero_contrario):
         while True:
-            fila=int(input('Introduce una fila de 0 a 9: '))
-            columna=int(input('Introduce una columna de 0 a 9: '))
-
- #Si la posicion no es valida, se pide que introduzca otra posicion       
-            if fila<0 or fila>=self.dimensiones or columna<0 or columna>=self.dimensiones:
+            fila = int(input('Introduce una fila de 0 a 9: '))
+            columna = int(input('Introduce una columna de 0 a 9: '))
+            if fila < 0 or fila >= self.dimensiones or columna < 0 or columna >= self.dimensiones:
                 print('Introduce una posicion valida')
-
- #Si la posicion es valida pero ya ha sido disparada, se indica y se termina el turno          
-            elif tablero_contrario.tablero[fila,columna]=='X' or tablero_contrario.tablero[fila,columna]=='~':
+            elif tablero_contrario.tablero[fila, columna] == 'X' or tablero_contrario.tablero[fila, columna] == '~':
                 print('Ya has disparado a esa posicion')
                 break
-
-#Si la posicion es valida y hay un barco, ha acertado y se dispara otra vez
-            elif tablero_contrario.tablero[fila,columna]=='O':
+            elif tablero_contrario.tablero[fila, columna] == 'O':
                 print('Has acertado')
-                tablero_contrario.tablero[fila,columna]='X'
-
-#Si la posicion es valida y no hay un barco, se le indica que ha fallado y se cambia el turno a la maquina
+                tablero_contrario.tablero[fila, columna] = 'X'
             else:
                 print('Has fallado')
-                tablero_contrario.tablero[fila,columna]='~'
-                break            
+                tablero_contrario.tablero[fila, columna] = '~'
+                break
 
-
-#Creamos el metodo para comprobar si el jugador ha ganado
-    def comprobar_ganador(self,tablero_contrario):
-#Si no hay ningun barco en el tablero contrario, el jugador ha ganado
-            if np.all(tablero_contrario.tablero=='O')==0:
-                print('¡Has ganado!') 
-                return False
-            else:
-                return True
-        
+    # Creamos el metodo para comprobar si el jugador ha ganado
+    def comprobar_ganador(self, tablero_contrario):
+        if 'O' not in tablero_contrario.tablero:
+            print('¡Has ganado!')
+            return False
+        else:
+            return True
