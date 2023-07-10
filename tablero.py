@@ -28,16 +28,13 @@ class Tablero:
 
 #Si la posicion es valida, colocamos el barco y salimos del bucle. Si no, se genera una nueva posicion
                 if self.validar_posicion(fila,columna,barco,orientacion):
-                    self.colocar_barco(fila,columna,barco,orientacion)
+                    if orientacion==0:
+                        for i in range(barco[1]): 
+                            self.tablero[fila,columna+i]='O'
+                    else:
+                        for i in range(barco[1]):
+                            self.tablero[fila+i,columna]='O'
                     break
- #Creamos el metodo para colocar cada barco con su tamaño y la orientacion que le pasamos             
-    def colocar_barco(self,fila,columna,barco,orientacion):
-        if orientacion==0:
-            for i in range(barco[1]): 
-                self.tablero[fila,columna:columna+barco]='O'
-        else:
-            for i in range(barco[1]):
-                self.tablero[fila:fila+barco,columna]='O'
 
 #Creamos el metodo para validar la posicion del barco
     def validar_posicion(self,fila,columna,barco,orientacion):
